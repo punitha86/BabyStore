@@ -19,6 +19,7 @@ router.post('/', (req, res) => {
     console.log(createdNewBlog);
   });
 })
+
 ///after clicking edit it should show all the correct details
 router.get('/:id/edit', (req, res) => {
     Blog.findById(req.params.id, (error, editBlog) => {
@@ -30,6 +31,23 @@ router.get('/:id/edit', (req, res) => {
         );
     });
 });
-
+///by clicking submit to the changes we get to this method
+router.put('/:id', (req, res) => {
+    Blog.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true },
+        (error, updatedBlog) => {
+            res.redirect('/blogs');
+            console.log(updatedBlog,req.body);
+        }
+    )
+});
+////the user can delete the blog he created
+router.delete('/:id', (req, res) => {
+    Blog.findByIdAndRemove(req.params.id, (err, deletedBlog) => {
+        res.redirect('/blogs');
+    })
+});
 
 module.exports = router;

@@ -19,6 +19,9 @@
     <% for(let i = 0 ; i < blogs.length ; i++){ %>
     <li> <%=blogs[i].title%> </li>
     <a href="/blogs/<%=blogs[i].id%>/edit">Edit</a>
+    <form class="" action="/blogs/<%=blogs[i].id%>?_method=DELETE" method="post">
+      <input type="submit" name="" value="DELETE">
+    </form>
     <% } %>
     <% } %>
   </ul>

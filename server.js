@@ -13,6 +13,7 @@ require('dotenv').config();
 const PORT = process.env.PORT;
 console.log(PORT);
 ///middleware////
+app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
 /////**********************************//////////
 /////*************Database***********//////////
