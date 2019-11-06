@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 /////**********************************//////////
 /////*************Database***********//////////
 /////**********************************//////////
-const MONGODB_URI = process.env.MONGODB_Uri;
+const MONGODB_URI = process.env.MONGODB_URI;
 console.log(MONGODB_URI);
 
 
