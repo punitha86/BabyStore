@@ -3,12 +3,21 @@ const express = require('express');
 const Blog = require('../models/blogs.js');
 const router = express.Router();
 //new route/// for adding a new blog
-router.get('/new', (req, res) => {
-    res.render('blogs/new.ejs')
+router.get('/', (req, res) => {
+  Blog.find({},(err,allBlogs) => {
+    res.render('blogs/new.ejs', {
+      blogs: allBlogs
+    })
+  })
+
 });
 ///create route post route for the new blog to be created
-router.post('/',(req,res) => {
-  res.send("ready to create")
+router.post('/', (req, res) => {
+  //res.send("ready to create");
+  Blog.create(req.body, (error, createdNewBlog) => {
+    res.redirect('blogs/new.ejs');
+    console.log(createdNewBlog);
+  });
 })
 
 

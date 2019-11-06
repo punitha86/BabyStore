@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Craete blog page</title>
+    <title>Create blog page</title>
   </head>
   <body>
     <h1>Creating a blog page</h1>
@@ -12,5 +12,14 @@
       Img URL:<input type="url" name="img" /><br/>
       <input type="Submit" name="" value="SUBMIT" />
     </form>
+    <ul>
+      <%= blogs.length %>
+      <% if(blogs.length>0){ %>
+      <% for(let i=0;i<blogs.length;i++){ %>
+        <li> <%=blogs[i].title%> </li>
+        <a href="/blogs/edit">Edit</a>
+        <% } %>
+        <% } %>
+    </ul>
   </body>
 </html>
