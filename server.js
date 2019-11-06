@@ -20,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 const MONGODB_URI = process.env.MONGODB_URI;
 console.log(MONGODB_URI);
 
+const blogsController = require('./controllers/blogs.js');
+app.use('/blogs', blogsController);
 
 //route
 app.get('/' , (req, res) => {
