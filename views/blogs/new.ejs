@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Create blog page</title>
-  </head>
-  <body>
-    <h1>Creating a blog page</h1>
-    <form class="" action="/blogs" method="post">
-      Title:<input type="text" name="title" /><br/>
-      Content:<textarea name="body" rows="8" cols="80"></textarea><br/>
-      Img URL:<input type="url" name="img" /><br/>
-      <input type="Submit" name="" value="SUBMIT" />
-    </form>
-    <ul>
-      <%= blogs.length %>
-      <% if(blogs.length>0){ %>
-      <% for(let i=0;i<blogs.length;i++){ %>
-        <li> <%=blogs[i].title%> </li>
-        <a href="/blogs/edit">Edit</a>
-        <% } %>
-        <% } %>
-    </ul>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <title>Create blog page</title>
+</head>
+
+<body>
+  <h1>Creating a blog page</h1>
+  <form class="" action="/blogs" method="post">
+    Title:<input type="text" name="title" /><br />
+    Content:<textarea name="body" rows="8" cols="80"></textarea><br />
+    Img URL:<input type="url" name="img" /><br />
+    <input type="Submit" name="" value="SUBMIT" />
+  </form>
+  <ul>
+    <% if(blogs.length>0){ %>
+    <% for(let i = 0 ; i < blogs.length ; i++){ %>
+    <li> <%=blogs[i].title%> </li>
+    <a href="/blogs/<%=blogs[i].id%>/edit">Edit</a>
+    <% } %>
+    <% } %>
+  </ul>
+</body>
+
 </html>

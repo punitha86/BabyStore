@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Editing the blog</title>
+  </head>
+  <body>
+    <form action="/blogs/<%=blog.id%>?_method=PUT" method="POST">
+          Title: <input type="text" name="name" value="<%=blog.title%>"/><br/>
+          Content: <input type="text" name="body" value="<%=blog.body%>" /><br/>
+          Image URL: <input type="text" name="img" value="<%=blog.img%>" /><br/>
+          <br/>
+          <input type="submit" value="Submit Changes">
+      <form>
+  </body>
+</html>
