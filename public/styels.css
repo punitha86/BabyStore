@@ -1,0 +1,17 @@
+.header {
+background: rgb(1,1,4);
+background: linear-gradient(67deg, rgba(1,1,4,1) 0%, rgba(126,121,121,1) 19%, rgba(0,0,11,1) 100%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  height:100px;
+  width:100%;
+  color:white;
+}
+.nav-link{
+  color:white;
+}
+fieldset{
+  text-align: center;
+}

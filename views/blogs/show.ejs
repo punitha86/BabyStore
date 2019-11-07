@@ -7,10 +7,12 @@
 </head>
 
 <body>
-  <h1><%=blog.title%></h1>
-  Created By: <%=blog.createdBy%> <br/>
-  Content:<%=blog.body%><br />
-  <img src="<%=blog.img%>" alt="blog image" />
+  <fieldset>
+    <legend><%=blog.title%></legend>
+    <img src="<%=blog.img%>" alt="blog image" /><br />
+    Content:<%=blog.body%><br />
+    Created By: <%=blog.createdBy%> <br />
+  </fieldset>
 
   <nav>
     <a href="/blogs">Back to Blogs</a>

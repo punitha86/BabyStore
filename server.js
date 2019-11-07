@@ -30,9 +30,20 @@ app.use(session({
 /////**********************************//////////
 const MONGODB_URI = process.env.MONGODB_URI;
 console.log(MONGODB_URI);
+
+//////////////////////////////
+const isAuthenticated = (req,res,next) => {
+  if(req.session.username){
+    next();
+  }else {
+    res.redirect('/');
+  }
+}
+///to access files in public folder
+app.use(express.static('public'))
 ///controllers///////
 const blogsController = require('./controllers/blogs.js');
-app.use('/blogs', blogsController);
+app.use('/blogs',isAuthenticated, blogsController);
 
 
 const usersController = require('./controllers/users.js');
