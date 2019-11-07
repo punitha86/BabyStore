@@ -6,7 +6,9 @@ const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const app = express ();
 const db = mongoose.connection;
+
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 require('dotenv').config();
 /////*************Port***********//////////
 
@@ -17,15 +19,18 @@ app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
   secret:'buggyrandomstring',
-  resave:false,
-  saveUninitialized:false
+  resave:true,
+  saveUninitialized:false,
+  store: new MongoStore({
+  mongooseConnection: db
+})
 }));
 /////**********************************//////////
 /////*************Database***********//////////
 /////**********************************//////////
 const MONGODB_URI = process.env.MONGODB_URI;
 console.log(MONGODB_URI);
-
+///controllers///////
 const blogsController = require('./controllers/blogs.js');
 app.use('/blogs', blogsController);
 
@@ -59,7 +64,19 @@ db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
 db.on('connected', () => console.log('mongo connected: ', MONGODB_URI));
 db.on('disconnected', () => console.log('mongo disconnected'));
 
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  var err = new Error('File Not Found');
+  err.status = 404;
+  next(err);
+});
 
+// error handler
+// define as the last app.use callback
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500);
+  res.send(err.message);
+});
 
 ////PORT
 //app.listen(PORT, () => console.log( 'Listening on port:', PORT));
