@@ -8,11 +8,22 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  createdBy : String,
-  img: String
-},  {
-    timestamps: true
-  })
+  createdBy: {
+    type: String,
+    default: "Anonymous"
+  },
+  likes: {
+    type: Number,
+    default: 0
+  },
+  comments:[String],
+  img: {
+    type:String,
+    deafult:"https://i.imgur.com/cvp3vWB.jpg"
+  }
+}, {
+  timestamps: true
+})
 
 const Blog = mongoose.model('Blog', blogSchema);
 

@@ -4,12 +4,17 @@ const bcrypt = require('bcrypt');
 const User = require('../models/users.js');
 
 router.get('/new', (req, res) => {
-    res.render('users/login.ejs');
+    res.render('users/login.ejs',{message:"HI!!"});
 })
 
-router.get("/logout", (req, res, next) => {
-  req.logout();
-  res.redirect("/");
+router.get('/logout', (req, res, next) => {
+  req.session.destroy((err)=>{
+		if(err){
+			res.redirect('/new')
+		} else {
+      res.redirect('/')
+		}
+	});
 });
 
 router.post('/', (req, res) => {
@@ -18,8 +23,8 @@ router.post('/', (req, res) => {
   if(User.findOne({ username: req.username }))
   {
     console.log("user exists");
-    res.flash('fail','User exists please use login');
-    res.redirect('/');
+    //res.flash('fail','User exists please use login');
+    res.render("./users/login.ejs",{message:"User exists"});
   }
     else {
       if(err){

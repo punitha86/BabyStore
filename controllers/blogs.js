@@ -11,14 +11,22 @@ const isAuthenticated = (req,res,next) => {
 }
 
 //new route/// for adding a new blog
-router.get('/', isAuthenticated,(req, res) => {
+router.get('/',isAuthenticated,(req, res) => {
   console.log(req.session);
-  Blog.find({createdBy:req.session.username}, (err, allBlogs) => {
+  // Blog.find({createdBy:req.session.username}, (err, allBlogs) => {
+  //   res.render('blogs/new.ejs', {
+  //     blogs: allBlogs,
+  //     username:req.session.username
+  //   })
+  // }).sort({_id:-1})
+  Blog.find({createdBy:req.session.username})
+  .sort({_id:-1})
+  .then(allBlogs => {
     res.render('blogs/new.ejs', {
       blogs: allBlogs,
       username:req.session.username
     })
-  }).sort({updatedAt:-1})
+  })
 });
 ///create route post route for the new blog to be created
 router.post('/', (req, res) => {
@@ -32,7 +40,7 @@ router.post('/', (req, res) => {
 })
 
 ///after clicking edit it should show all the correct details
-router.get('/:id/edit', isAuthenticated,(req, res) => {
+router.get('/:id/edit',isAuthenticated,(req, res) => {
   Blog.findById(req.params.id, (error, editBlog) => {
     res.render(
       'blogs/edit.ejs', {
@@ -44,6 +52,7 @@ router.get('/:id/edit', isAuthenticated,(req, res) => {
 
 ///by clicking submit to the changes we get to this method
 router.put('/:id', (req, res) => {
+  console.log("inside blog put");
   Blog.findByIdAndUpdate(
     req.params.id,
     req.body, {
@@ -57,7 +66,7 @@ router.put('/:id', (req, res) => {
 });
 
 ///after clicking edit it should show all the correct details
-router.get('/:id', isAuthenticated,(req, res) => {
+router.get('/:id', (req, res) => {
   Blog.findById(req.params.id, (error, showBlog) => {
     res.render(
       'blogs/show.ejs', {
@@ -68,7 +77,7 @@ router.get('/:id', isAuthenticated,(req, res) => {
 });
 
 ////the user can delete the blog he created
-router.delete('/:id', (req, res) => {
+router.delete('/:id',isAuthenticated, (req, res) => {
   Blog.findByIdAndRemove(req.params.id, (err, deletedBlog) => {
     res.redirect('/blogs');
   })

@@ -1,17 +1,80 @@
-.header {
-background: rgb(1,1,4);
-background: linear-gradient(67deg, rgba(1,1,4,1) 0%, rgba(126,121,121,1) 19%, rgba(0,0,11,1) 100%);
-  background-size: cover;
-  background-repeat: no-repeat;
-  margin: 0;
-  padding: 0;
-  height:100px;
-  width:100%;
-  color:white;
+* {
+  box-sizing: border-box;
+  font-family: Open Sans, Helvetica, Arial, sans-serif;
+}
+
+header > img{
+width:100vw;
+height:30vh;
 }
 .nav-link{
   color:white;
 }
 fieldset{
   text-align: center;
+}
+.topnav {
+  display: flex;
+  flex-direction: row;
+  background-color: #333;
+  overflow: hidden;
+  justify-content: space-between;
+}
+
+/* styling the links inside the navigation bar */
+.topnav a {
+  display: inline-flex;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 40px;
+  text-decoration: none;
+  font-size: 17px;
+}
+/* When the screen is less than 600 pixels wide, */
+@media screen and (max-width: 600px) {
+  .topnav a {
+    padding: 5px 5px;
+    text-decoration: none;
+    font-size: 10px;
+  }
+
+
+  .icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding-top: 1vw;
+  color: grey;
+  width: 15vw;
+}
+
+.icons>ion-icon {
+  font-size: 30px;
+  padding: 0;
+  height: 5vw;
+  width: 50px;
+}
+
+.icons>a {
+  padding: 0;
+  text-decoration: none;
+}
+
+#myTopnav {
+  overflow: hidden;
+}
+
+/* The sticky class is added to the navbar  */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky+.content {
+  padding-top: 60px;
+}
+li{
+  list-style-type: none;
 }

@@ -5,6 +5,9 @@
     <title>Login Page</title>
   </head>
   <body>
+    <% if(message){%>
+      <%=message%>
+    <%}%>
     <form class="" method="post">
       <input type="text" name="username" placeholder="UserName"/>
       <input type="password" name="password" placeholder="Password"/>
