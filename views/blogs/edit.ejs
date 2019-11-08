@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Editing the blog</title>
-  </head>
-  <body>
-    <form action="/blogs/<%=blog.id%>?_method=PUT" method="POST">
-          Title: <input type="text" name="title" value="<%=blog.title%>"/><br/>
-          Content: <input type="text" name="body" value="<%=blog.body%>" /><br/>
-          Image URL: <input type="text" name="img" value="<%=blog.img%>" /><br/>
-          <br/>
-          <input type="submit" value="Submit Changes">
-      <form>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" charset="utf-8"></script>
+  <title>Editing the blog</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/styels.css" />
+</head>
+
+<body>
+  <% include ../partials/head.ejs %>
+  <div class="container">
+
+
+  <form  method="POST">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" name="title" value="<%=blog.title%>" required />
+    </div>
+    <div class="form-group">
+      <label for="body">Content</label>
+      <textarea class="form-control" id="body" rows="6" name="body" required><%=blog.body%></textarea>
+    </div>
+    <div class="form-group">
+      <label for="imgurl">Image URL</label>
+      <input type="url" class="form-control" id="imgurl" name="img" value="<%=blog.img%>" />
+    </div>
+    <div class="form-group">
+      <label>Comments</label> <br/>
+   <% for(let x=0 ; x<blog.comments.length ; x++) { %>
+     <div class="form-group">
+      <input type="text" class="form-control" name="comments"
+     value="<%=blog.comments[x]%>" readonly/>
+     <input type="submit" class="btn btn-dark"" formaction="/blogs/comments/<%=x%>/<%=blog.id%>?_method=PATCH"value="DELETE">
+
+   </div>
+   <%}%>
+
+     </div>
+     <button type="submit" formaction="/blogs/<%=blog.id%>?_method=PUT"class="btn btn-primary">Update</button>
+    <form>
+      </div>
+</body>
+
 </html>

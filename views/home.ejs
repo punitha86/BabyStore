@@ -15,37 +15,19 @@
 
 <body>
 
-    <div class="jumbotron">
-      <h1 class="display-4">Thoughts At work!!</h1>
-    </div>
-  </div>
-
-
-  <header>
-
-<!-- <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3yS2nvxJ-qEmNM6P0KC-nkorna4jgevxZ98kmO7lLBK-T60Wd9w&s'/> -->
-  </header>
-  <div class="topnav" id="myTopnav">
-    <a href="/users/new/" class="nav-link">Login</a>
-    <a href="/" class="nav-link">Dashboard</a>
-    <a href="/users/logout" class="nav-link">Logout</a>
-
+<% include ./partials/head.ejs %>
     <!-- <div class="icons">
        <a href="https://twitter.com/" target="_blank"><ion-icon name="logo-twitter"></ion-icon></a>
        <a href="https://facebook.com/" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a>
        <a href="https://instagram.com/" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a>
      </div> -->
 
-  </div>
-
-
-
   <ul>
       <div class="list-group">
     <% if(blogs.length>0){ %>
     <% for(let i = 0 ; i < blogs.length ; i++){ %>
 
-     <a href="/blogs/<%=blogs[i].id%>" class="list-group-item list-group-item-action" > <%=blogs[i].title%><br><small>Created By:<%=blogs[i].createdBy%></small> </a><br>
+     <a href="/blogs/<%=blogs[i].id%>" class="list-group-item list-group-item-action" > <%=blogs[i].title%><br><small>Created By:  <%=blogs[i].createdBy%></small> </a><br>
     <% } %>
     <% } else { %>
     Sorry nothing to show!

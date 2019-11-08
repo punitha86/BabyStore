@@ -4,15 +4,27 @@
 <head>
   <meta charset="utf-8">
   <title></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="/styels.css"/>
 </head>
 
-<body>
+<% include ../partials/head.ejs %>
+
   <fieldset>
     <legend><%=blog.title%></legend>
     <img src="<%=blog.img%>" alt="blog image" /><br />
     Content:<%=blog.body%><br />
     Created By: <%=blog.createdBy%> <br />
-    <button type="button" name="button"><%=blog.likes%> Like</button>
+    <%=blog.likes%> Likes till now.
+    <form  action="/blogs/<%=blog.id%>?_method=PATCH" method="POST">
+       <input class='button button-primary' type="submit" value="Like">
+     </form>
+     <br/>
+     Comments:<%=blog.comments%>
+     <br/>
+     <form  action="/blogs/comments/<%=blog.id%>" method="POST">
+        <input  type="text" name="comments">
+      </form>
   </fieldset>
 
   <nav>

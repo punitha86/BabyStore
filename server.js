@@ -59,7 +59,7 @@ app.get('/' , (req, res) => {
   Blog.find({},(err,allBlogs) => {
       res.render('home.ejs', {
         blogs: allBlogs })
-    })
+    }).sort({_id:-1})
   })
   //res.send('Hello World!');
 

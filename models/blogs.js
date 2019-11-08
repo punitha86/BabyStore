@@ -16,11 +16,11 @@ const blogSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  comments:[String],
   img: {
-    type:String,
-    deafult:"https://i.imgur.com/cvp3vWB.jpg"
-  }
+    type: String,
+    default: "http://i.imgur.com/cvp3vWB.jpg"
+  },
+  comments: [String]
 }, {
   timestamps: true
 })

@@ -4,9 +4,12 @@
 <head>
   <meta charset="utf-8">
   <title>Create blog page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="/styels.css"/>
 </head>
 
 <body>
+  <% include ../partials/head.ejs %>
   <h1>Creating a blog page</h1>
   <form class="" action="/blogs" method="post">
     Title:<input type="text" name="title" /><br />
@@ -19,7 +22,7 @@
   <ul>
     <% if(blogs.length>0){ %>
     <% for(let i = 0 ; i < blogs.length ; i++){ %>
-    <li> <a href="/blogs/<%=blogs[i].id%>"> <%=blogs[i].title%> </a></li>
+     <a href="/blogs/<%=blogs[i].id%>"> <%=blogs[i].title%> </a>
     <a href="/blogs/<%=blogs[i].id%>/edit">Edit</a>
     <form class="" action="/blogs/<%=blogs[i].id%>?_method=DELETE" method="post">
       <input type="submit" name="" value="DELETE">

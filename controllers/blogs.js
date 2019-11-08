@@ -75,6 +75,41 @@ router.get('/:id', (req, res) => {
     );
   });
 });
+//patch route for like button
+router.patch('/:id', (req, res) => {
+  Blog.findByIdAndUpdate(
+    req.params.id,
+    {$inc: {likes: 1}},
+    {new:true},
+    (err, updated) => {
+      res.redirect('/blogs/'+req.params.id)
+    }
+  )
+})
+//comment
+router.post('/comments/:id',(req, res) =>{
+console.log(req.body);
+  Blog.findByIdAndUpdate(
+    req.params.id,
+    {$push:{"comments":req.body.comments}},
+    {safe: true, upsert: true, new : true},
+    (err, updated) => {
+      res.redirect('/blogs/'+req.params.id)
+    }
+  );
+});
+//patch for comments
+router.patch('/comments/:num/:id',isAuthenticated, (req, res) => {
+  console.log(req.body);
+  Blog.findByIdAndUpdate(
+    req.params.id,
+    {$pull:{"comments":req.body.comments[req.params.num]}},
+    {safe: true, upsert: true, new : true},
+    (err, updated) => {
+      console.log(updated,'updated');
+      res.redirect('/blogs/'+req.params.id+'/edit/')
+    });
+});
 
 ////the user can delete the blog he created
 router.delete('/:id',isAuthenticated, (req, res) => {
