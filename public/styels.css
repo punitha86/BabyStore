@@ -12,10 +12,13 @@ fieldset {
 }
 
 .jumbotron {
+  width:100%;
+  background-image: url('https://i.imgur.com/OBsN95b.jpg');
+  background-size: cover;
   font-family: 'Vollkorn SC', serif;
   margin-bottom: 0;
-  background-color: black;
-  color: white;
+  /* background-color: black; */
+  color: black;
   border-radius: 0;
 }
 .media{
