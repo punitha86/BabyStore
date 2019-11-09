@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+<% include ../partials/meta.ejs %>
+  </head>
+  <body>
+    <% include ../partials/head.ejs %>
+    <div class="container">
+
+
+    Search results page<br>
+    <div class="list-group">
+    <%if(result.length>0){%>
+    <%for(let x in result){%>
+      <a href="/blogs/<%=result[x].id%>" >
+      <div class="list-group-item list-group-item-action">
+
+    Title:<%=result[x].title%><br>
+    Content:<%=result[x].body.slice(0,20)%>...<br>
+    <small>createdBy:<%=result[x].createdBy%></small>
+    </div>
+    </a>
+    <%}%>
+    <%} else {%>
+      <p> No results found</p>
+      <%}%>
+      </div>
+      </div>
+  </body>
+</html>

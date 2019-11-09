@@ -76,10 +76,10 @@ router.get('/:id', (req, res) => {
   });
 });
 //patch route for like button
-router.patch('/:id', (req, res) => {
+router.patch('/:id/:num', (req, res) => {
   Blog.findByIdAndUpdate(
     req.params.id,
-    {$inc: {likes: 1}},
+    {$inc: {likes: req.params.num}},
     {new:true},
     (err, updated) => {
       res.redirect('/blogs/'+req.params.id)
@@ -110,6 +110,20 @@ router.patch('/comments/:num/:id',isAuthenticated, (req, res) => {
       res.redirect('/blogs/'+req.params.id+'/edit/')
     });
 });
+////post route for search
+router.post('/search',(req,res) => {
+  //res.render("blogs/search.ejs");
+  Blog.find({$text: {$search: req.body.search}},(err,result) => {
+         console.log(result);
+         res.render('blogs/search.ejs',{
+           result:result
+         });
+
+       });
+})
+
+
+
 
 ////the user can delete the blog he created
 router.delete('/:id',isAuthenticated, (req, res) => {

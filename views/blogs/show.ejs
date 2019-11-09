@@ -2,10 +2,7 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <meta charset="utf-8">
-  <title></title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-  <link rel="stylesheet" href="/styels.css"/>
+<% include ../partials/meta.ejs %>
 </head>
 
 <% include ../partials/head.ejs %>
@@ -30,8 +27,10 @@
  <%= blog.updatedAt.toDateString() %>
   </p>
 
-  <form  class="text-center" action="/blogs/<%=blog.id%>?_method=PATCH" method="POST">
-     <button class='button button-primary align-center' type="submit"><%=blog.likes%> Likes </button>
+  <form  class="text-center"  method="POST">
+     <button class='button button-primary align-center' type="submit" formaction="/blogs/<%=blog.id%>/1?_method=PATCH"> Likes </button>
+     <%=blog.likes%> Likes
+          <button class='button button-primary align-center' formaction="/blogs/<%=blog.id%>/-1?_method=PATCH" type="submit">DisLikes </button>
    </form>
    </div>
 </div>
