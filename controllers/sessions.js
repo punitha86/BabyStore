@@ -4,7 +4,7 @@ const User = require('../models/users.js');
 const bcrypt = require('bcrypt');
 
 router.get('/new', (req, res) => {
-    res.render('users/login.ejs');
+    res.render('users/login.ejs',{message:"Enter correct Password/ Please register first"});
 });
 
 router.post('/', (req, res) => {

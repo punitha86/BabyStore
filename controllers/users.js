@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/users.js');
 
 router.get('/new', (req, res) => {
-    res.render('users/login.ejs',{message:"HI!!"});
+    res.render('users/login.ejs',{message:"HI!! Please Login!"});
 })
 
 router.get('/logout', (req, res, next) => {

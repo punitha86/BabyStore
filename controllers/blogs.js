@@ -6,7 +6,7 @@ const isAuthenticated = (req,res,next) => {
   if(req.session.username){
     next();
   }else {
-    res.redirect('/');
+    res.redirect('/users/new');
   }
 }
 

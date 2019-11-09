@@ -9,27 +9,54 @@
 </head>
 
 <% include ../partials/head.ejs %>
+<div class="container">
 
-  <fieldset>
-    <legend><%=blog.title%></legend>
-    <img src="<%=blog.img%>" alt="blog image" /><br />
-    Content:<%=blog.body%><br />
-    Created By: <%=blog.createdBy%> <br />
-    <%=blog.likes%> Likes till now.
-    <form  action="/blogs/<%=blog.id%>?_method=PATCH" method="POST">
-       <input class='button button-primary' type="submit" value="Like">
-     </form>
-     <br/>
-     Comments:<%=blog.comments%>
-     <br/>
+
+<div class="media">
+  <% if(blog.img!=""){ %>
+      <img src="<%=blog.img%>" class="align-self-center mr-3" alt="Blog img" style="width:20vw; height:20vh">
+  <% } %>
+
+  <div class="media-body">
+    <h5 class="mt-0 text-center"><%=blog.title%></h5>
+    <p class="mb-0"> <%=blog.body%> </p>
+    <p class="mb-0 text-center"> Created By: <%=blog.createdBy%> </p>
+<!-- Date conversion to readable format -->
+
+<p class="mb-0 text-center"> Created On:
+<%= blog.createdAt.toDateString() %>
+ </p>
+ <p class="mb-0 text-center"> Last Updated On:
+ <%= blog.updatedAt.toDateString() %>
+  </p>
+
+  <form  class="text-center" action="/blogs/<%=blog.id%>?_method=PATCH" method="POST">
+     <button class='button button-primary align-center' type="submit"><%=blog.likes%> Likes </button>
+   </form>
+   </div>
+</div>
+
+
+
+
      <form  action="/blogs/comments/<%=blog.id%>" method="POST">
-        <input  type="text" name="comments">
+       <div class="form-group">
+   <label for="exampleFormControlTextarea1">Comments</label>
+   <textarea class="form-control" id="exampleFormControlTextarea1" name="comments" rows="3"></textarea>
+   <button class='button button-primary align-center' type="submit">Submit Comment</button>
+ </div>
       </form>
-  </fieldset>
+<ul class="list-group list-group-flush">
+<% for(let x=blog.comments.length-1; x >= 0; x--){ %>
+  <li class="list-group-item"><%= blog.comments[x] %></li>
+<%}%>
+</ul>
+  <!-- </fieldset> -->
 
   <nav>
     <a href="/blogs">Back to Blogs</a>
   </nav>
+  </div>
 </body>
 
 </html>

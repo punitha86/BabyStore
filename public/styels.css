@@ -3,17 +3,26 @@
   font-family: Open Sans, Helvetica, Arial, sans-serif;
 }
 
-header > img{
-width:100vw;
-height:30vh;
+.nav-link {
+  color: white;
 }
-.nav-link{
-  color:white;
-}
-fieldset{
+
+fieldset {
   text-align: center;
 }
+
+.jumbotron {
+  font-family: 'Vollkorn SC', serif;
+  margin-bottom: 0;
+  background-color: black;
+  color: white;
+  border-radius: 0;
+}
+.media{
+  border: 1px solid black;
+}
 .topnav {
+  margin-top: 0;
   display: flex;
   flex-direction: row;
   background-color: #333;
@@ -30,6 +39,7 @@ fieldset{
   text-decoration: none;
   font-size: 17px;
 }
+
 /* When the screen is less than 600 pixels wide, */
 @media screen and (max-width: 600px) {
   .topnav a {
@@ -38,8 +48,7 @@ fieldset{
     font-size: 10px;
   }
 
-
-  .icons {
+  /* .icons {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -59,22 +68,11 @@ fieldset{
 .icons>a {
   padding: 0;
   text-decoration: none;
-}
+} */
+  #myTopnav {
+    overflow: hidden;
+  }
 
-#myTopnav {
-  overflow: hidden;
-}
-
-/* The sticky class is added to the navbar  */
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-.sticky+.content {
-  padding-top: 60px;
-}
-li{
-  list-style-type: none;
-}
+  li {
+    list-style-type: none;
+  }

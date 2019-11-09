@@ -10,26 +10,63 @@
 
 <body>
   <% include ../partials/head.ejs %>
-  <h1>Creating a blog page</h1>
+  <h1 class="text-center">Create your Blog here!</h1>
+<div class="container">
+
+
   <form class="" action="/blogs" method="post">
-    Title:<input type="text" name="title" /><br />
-    Content:<textarea name="body" rows="8" cols="80"></textarea><br />
-    Img URL:<input type="url" name="img" /><br />
-    Created By:
-    <input type="text" name="createdBy" value="<%=username%>" readonly/>
+<!-- title -->
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Title</span>
+      </div>
+      <input type="text" class="form-control" placeholder="Your title" name="title">
+    </div>
+<!-- content -->
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text">Content</span>
+  </div>
+  <textarea class="form-control" name="body" aria-label="With textarea" rows=8></textarea>
+</div>
+<!-- image url -->
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">ImageURL</span>
+  </div>
+  <input type="url" class="form-control" placeholder="Image url" name="img">
+</div>
+    <!-- Content:<textarea name="body" rows="8" cols="80"></textarea><br /> -->
+    <!-- Img URL:<input type="url" name="img" /><br /> -->
+<!-- created by -->
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Author</span>
+  </div>
+  <input type="text" class="form-control" value="<%=username%>"  name="createdBy" readonly>
+</div>
+
     <input type="Submit" name="" value="SUBMIT" />
   </form>
-  <ul>
+  </div>
+  <div class="container text-center">
+
+  <ul class="list-group">
     <% if(blogs.length>0){ %>
     <% for(let i = 0 ; i < blogs.length ; i++){ %>
-     <a href="/blogs/<%=blogs[i].id%>"> <%=blogs[i].title%> </a>
-    <a href="/blogs/<%=blogs[i].id%>/edit">Edit</a>
-    <form class="" action="/blogs/<%=blogs[i].id%>?_method=DELETE" method="post">
-      <input type="submit" name="" value="DELETE">
+        <form class="list-group-item list-group-item-action" action="/blogs/<%=blogs[i].id%>?_method=DELETE" method="post">
+     <a href="/blogs/<%=blogs[i].id%>"> <%=blogs[i].title%> </a><br/>
+    <a href="/blogs/<%=blogs[i].id%>/edit" class="btn btn-dark">Edit</a>
+
+      <input type="submit" class="btn btn-dark" name="" value="Delete">
     </form>
+
     <% } %>
     <% } %>
   </ul>
+
+</div>
 </body>
 
 </html>
