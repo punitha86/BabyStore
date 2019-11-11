@@ -55,6 +55,30 @@
   margin:0 auto;
   justify-content: center;
 }
+
+html,
+body{
+ height: 100%;
+}
+
+#cover {
+  background: url('') center center no-repeat;
+  background-size: cover;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+.blk{
+  color:black;
+}
+.icons{
+  display:flex;
+  color:white;
+}
+#cover-caption {
+  width: 100%;
+}
   #myTopnav {
     overflow: hidden;
   }

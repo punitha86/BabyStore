@@ -147,6 +147,7 @@ router.post('/search', (req, res) => {
   //res.render("blogs/search.ejs");
   Blog.find({
     $text: {
+       //$regex: req.body.search , $options: 'i'
       $search: req.body.search
     }
   }, (err, result) => {
@@ -158,9 +159,6 @@ router.post('/search', (req, res) => {
 
   });
 })
-
-
-
 
 ////the user can delete the blog he created
 router.delete('/:id', isAuthenticated, (req, res) => {
