@@ -6,10 +6,14 @@ const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const app = express ();
 const db = mongoose.connection;
-
+//assosciate tehs tarategy
+const passportSetup=require('./config/passport-setup.js')
+const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 require('dotenv').config();
+const keys=require('./config/keys.js');
+//const cookieSession=require('cookie-session');
 /////*************Port***********//////////
 
 const PORT = process.env.PORT;
@@ -18,8 +22,8 @@ console.log(PORT);
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
-  secret:'buggyrandomstring',
-  resave:true,
+  secret:keys.sessionexp.sessionkey,
+  resave:false,
   saveUninitialized:false,
   store: new MongoStore({
   mongooseConnection: db
@@ -42,6 +46,10 @@ console.log(MONGODB_URI);
 ///to access files in public folder
 app.use(express.static('public'))
 ///controllers///////
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 const blogsController = require('./controllers/blogs.js');
 app.use('/blogs', blogsController);
 
@@ -53,9 +61,15 @@ app.use('/users', usersController);
 const sessionsController = require('./controllers/sessions.js');
 app.use('/sessions', sessionsController);
 
+const authController = require('./controllers/auth.js');
+app.use('/auth', authController);
+
+
 ///home page route
 const Blog = require('./models/blogs.js');
-app.get('/' , (req, res) => {
+
+app.get('/' ,(req, res) => {
+
   Blog.find({},(err,allBlogs) => {
       res.render('home.ejs', {
         blogs: allBlogs })

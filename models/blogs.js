@@ -8,6 +8,9 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  authorID:{
+    type:String
+  },
   createdBy: {
     type: String,
     default: "Anonymous"

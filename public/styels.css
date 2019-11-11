@@ -6,9 +6,9 @@
 .nav-link {
   color: white;
 }
-
-fieldset {
-  text-align: center;
+.search{
+  padding-top: 10px;
+  padding-right: 10px;
 }
 
 .jumbotron {
@@ -50,28 +50,11 @@ fieldset {
     text-decoration: none;
     font-size: 10px;
   }
-
-  /* .icons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  padding-top: 1vw;
-  color: grey;
-  width: 15vw;
+.login{
+  width:30%;
+  margin:0 auto;
+  justify-content: center;
 }
-
-.icons>ion-icon {
-  font-size: 30px;
-  padding: 0;
-  height: 5vw;
-  width: 50px;
-}
-
-.icons>a {
-  padding: 0;
-  text-decoration: none;
-} */
   #myTopnav {
     overflow: hidden;
   }

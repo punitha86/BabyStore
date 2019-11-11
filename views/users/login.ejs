@@ -7,13 +7,14 @@
 
 <body>
     <% include ../partials/head.ejs %>
-  <div class="container">
 
 
+    </div>
+  <div class="container login">
     <% if(message){%>
     <%=message%>
     <%}%>
-    <form method="post">
+    <form method="post" >
       <div class="form-group">
          <label for="usr">UserName</label>
         <input id="usr" type="text" name="username" placeholder="UserName"/>
@@ -28,6 +29,9 @@
       </div>
 
     </form>
+    <p>Login using..</p>
+      <a href="/auth/google" class="google-btn">Google</a>
+
   </div>
   </body>
 </html>

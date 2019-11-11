@@ -1,6 +1,7 @@
 const express = require('express');
 const Blog = require('../models/blogs.js');
 const router = express.Router();
+const passport = require('passport');
 ///////////////////ensuring if the user is autenticated to use those pages
 const isAuthenticated = (req,res,next) => {
   if(req.session.username){
@@ -11,14 +12,10 @@ const isAuthenticated = (req,res,next) => {
 }
 
 //new route/// for adding a new blog
-router.get('/',isAuthenticated,(req, res) => {
-  console.log(req.session);
-  // Blog.find({createdBy:req.session.username}, (err, allBlogs) => {
-  //   res.render('blogs/new.ejs', {
-  //     blogs: allBlogs,
-  //     username:req.session.username
-  //   })
-  // }).sort({_id:-1})
+router.get('/',isAuthenticated, (req, res) => {
+  //console.log(req.session,'req.session in blog');
+  //console.log(req);
+
   Blog.find({createdBy:req.session.username})
   .sort({_id:-1})
   .then(allBlogs => {
@@ -29,6 +26,7 @@ router.get('/',isAuthenticated,(req, res) => {
   })
 });
 ///create route post route for the new blog to be created
+
 router.post('/', (req, res) => {
   //res.send("ready to create");
   req.body.createdBy=req.session.username;
@@ -39,12 +37,28 @@ router.post('/', (req, res) => {
   });
 })
 
+// router.post('/', (req, res) => {
+//   //res.send("ready to create");
+//   console.log("inside post");
+//   ///getting the user name from cookie
+//   User.findById(req.session.passport.user,(err,passuser) => {
+//     req.body.createdBy = passuser.username;
+//   });
+//   req.body.authorID = req.session.passport.user;
+//   console.log("created by",req.body.createdBy, "req.user.username:",req.user.username,"req.passport.session",req.passport.session);
+//   Blog.create(req.body, (error, createdNewBlog) => {
+//     res.redirect('blogs/');
+//     console.log("created new db blog entry",createdNewBlog, "req body in post",req.body);
+//   });
+// })
+
 ///after clicking edit it should show all the correct details
 router.get('/:id/edit',isAuthenticated,(req, res) => {
   Blog.findById(req.params.id, (error, editBlog) => {
     res.render(
       'blogs/edit.ejs', {
-        blog: editBlog
+        blog: editBlog,
+        username:req.session.username
       }
     );
   });
@@ -67,10 +81,12 @@ router.put('/:id', (req, res) => {
 
 ///after clicking edit it should show all the correct details
 router.get('/:id', (req, res) => {
+  console.log("get req", req);
   Blog.findById(req.params.id, (error, showBlog) => {
     res.render(
       'blogs/show.ejs', {
-        blog: showBlog
+        blog: showBlog,
+        username:req.session.username
       }
     );
   });
@@ -78,23 +94,33 @@ router.get('/:id', (req, res) => {
 //patch route for like button
 router.patch('/:id/:num', (req, res) => {
   Blog.findByIdAndUpdate(
-    req.params.id,
-    {$inc: {likes: req.params.num}},
-    {new:true},
+    req.params.id, {
+      $inc: {
+        likes: req.params.num
+      }
+    }, {
+      new: true
+    },
     (err, updated) => {
-      res.redirect('/blogs/'+req.params.id)
+      res.redirect('/blogs/' + req.params.id)
     }
   )
 })
 //comment
-router.post('/comments/:id',(req, res) =>{
-console.log(req.body);
+router.post('/comments/:id', (req, res) => {
+  console.log(req.body);
   Blog.findByIdAndUpdate(
-    req.params.id,
-    {$push:{"comments":req.body.comments}},
-    {safe: true, upsert: true, new : true},
+    req.params.id, {
+      $push: {
+        "comments": req.body.comments
+      }
+    }, {
+      safe: true,
+      upsert: true,
+      new: true
+    },
     (err, updated) => {
-      res.redirect('/blogs/'+req.params.id)
+      res.redirect('/blogs/' + req.params.id)
     }
   );
 });
@@ -102,33 +128,44 @@ console.log(req.body);
 router.patch('/comments/:num/:id',isAuthenticated, (req, res) => {
   console.log(req.body);
   Blog.findByIdAndUpdate(
-    req.params.id,
-    {$pull:{"comments":req.body.comments[req.params.num]}},
-    {safe: true, upsert: true, new : true},
+    req.params.id, {
+      $pull: {
+        "comments": req.body.comments[req.params.num]
+      }
+    }, {
+      safe: true,
+      upsert: true,
+      new: true
+    },
     (err, updated) => {
-      console.log(updated,'updated');
-      res.redirect('/blogs/'+req.params.id+'/edit/')
+      console.log(updated, 'updated');
+      res.redirect('/blogs/' + req.params.id + '/edit/')
     });
 });
 ////post route for search
-router.post('/search',(req,res) => {
+router.post('/search', (req, res) => {
   //res.render("blogs/search.ejs");
-  Blog.find({$text: {$search: req.body.search}},(err,result) => {
-         console.log(result);
-         res.render('blogs/search.ejs',{
-           result:result
-         });
+  Blog.find({
+    $text: {
+      $search: req.body.search
+    }
+  }, (err, result) => {
+    console.log(result);
+    res.render('blogs/search.ejs', {
+      result: result,
+      username:req.session.username
+    });
 
-       });
+  });
 })
 
 
 
 
 ////the user can delete the blog he created
-router.delete('/:id',isAuthenticated, (req, res) => {
+router.delete('/:id', isAuthenticated, (req, res) => {
   Blog.findByIdAndRemove(req.params.id, (err, deletedBlog) => {
-    res.redirect('/blogs');
+    res.redirect('/blogs/');
   })
 });
 

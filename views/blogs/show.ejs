@@ -28,9 +28,9 @@
   </p>
 
   <form  class="text-center"  method="POST">
-     <button class='button button-primary align-center' type="submit" formaction="/blogs/<%=blog.id%>/1?_method=PATCH"> Likes </button>
+     <button class='button button-primary align-center' type="submit" formaction="/blogs/<%=blog.id%>/1?_method=PATCH"><span class="lnr lnr-thumbs-up"></span> </button>
      <%=blog.likes%> Likes
-          <button class='button button-primary align-center' formaction="/blogs/<%=blog.id%>/-1?_method=PATCH" type="submit">DisLikes </button>
+          <button class='button button-primary align-center' formaction="/blogs/<%=blog.id%>/-1?_method=PATCH" type="submit"><span class="lnr lnr-thumbs-down"></span> </button>
    </form>
    </div>
 </div>

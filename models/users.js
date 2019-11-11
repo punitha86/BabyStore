@@ -4,11 +4,11 @@ const userSchema = new mongoose.Schema({
       username: {
         type: String,
         unique: true,
-        required: true
+        required:true
       },
+      googleId:String,
       password: {
-        type: String,
-        required: true
+        type: String
       }})
 
     const User = mongoose.model('User', userSchema);
