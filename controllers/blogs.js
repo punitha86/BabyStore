@@ -18,9 +18,10 @@ const passport = require('passport');
 
 ///////////////////ensuring if the user is autenticated to use those pages
 const isAuthenticated = (req,res,next) => {
-  if(req.session.username){
+  if(req.session.username||req.isAuthenticated()){
     next();
   }else {
+    console.log(req.isAuthenticated(),req.user.username);
     res.redirect('/users/new');
   }
 }
@@ -28,14 +29,20 @@ const isAuthenticated = (req,res,next) => {
 //new route/// for adding a new blog
 router.get('/',isAuthenticated, (req, res) => {
   //console.log(req.session,'req.session in blog');
-  //console.log(req);
-
-  Blog.find({createdBy:req.session.username})
+  console.log(req);
+  if(req.session.username){
+    console.log("inside if");
+    username=req.session.username;
+  }else{
+    username=req.user.username;
+  }
+  Blog.find({createdBy:username})
   .sort({_id:-1})
   .then(allBlogs => {
+
     res.render('blogs/new.ejs', {
       blogs: allBlogs,
-      username:req.session.username
+      username:username
     })
   })
 });
@@ -43,8 +50,14 @@ router.get('/',isAuthenticated, (req, res) => {
 
 router.post('/', (req, res) => {
   //res.send("ready to create");
-  req.body.createdBy=req.session.username;
-  console.log(req.body.createdBy, req.session.username);
+  if(req.session.username){
+      console.log("inside if");
+      username=req.session.username;
+    }else{
+      username=req.user.username;
+    }
+  req.body.createdBy=username;
+  console.log(req.body.createdBy, username,"inside post");
   Blog.create(req.body, (error, createdNewBlog) => {
     res.redirect('blogs/');
     console.log(createdNewBlog,req.body);
@@ -68,11 +81,18 @@ router.post('/', (req, res) => {
 
 ///after clicking edit it should show all the correct details
 router.get('/:id/edit',isAuthenticated,(req, res) => {
+  if(req.session.username){
+    console.log("inside if");
+    username=req.session.username;
+  }else{
+    console.log("inside if user");
+    username=req.user.username;
+  }
   Blog.findById(req.params.id, (error, editBlog) => {
     res.render(
       'blogs/edit.ejs', {
         blog: editBlog,
-        username:req.session.username
+        username:username
       }
     );
   });
@@ -96,11 +116,17 @@ router.put('/:id', (req, res) => {
 ///after clicking edit it should show all the correct details
 router.get('/:id', (req, res) => {
   console.log("get req", req);
+  if(req.session.username){
+    console.log("inside if");
+    username=req.session.username;
+  }else{
+    username=req.user.username;
+  }
   Blog.findById(req.params.id, (error, showBlog) => {
     res.render(
       'blogs/show.ejs', {
         blog: showBlog,
-        username:req.session.username
+        username:username
       }
     );
   });
@@ -161,6 +187,12 @@ router.patch('/comments/:num/:id',isAuthenticated, (req, res) => {
 ////post route for search
 router.post('/search', (req, res) => {
   //res.render("blogs/search.ejs");
+  if(req.session.username){
+    console.log("inside if");
+    username=req.session.username;
+  }else{
+    username=req.user.username;
+  }
   Blog.find({
     $text: { $search: req.body.search }
       //$search: req.body.search}
@@ -168,7 +200,7 @@ router.post('/search', (req, res) => {
     console.log(result);
     res.render('blogs/search.ejs', {
       result: result,
-      username:req.session.username
+      username:username
     });
 
   });

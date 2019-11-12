@@ -22,10 +22,10 @@ router.get('/google/redirect',passport.authenticate('google'),(req,res) => {
       //'googleProfile.ejs',{
       //user:gotuser
     //}
-    User.findById(req.user.id,(err,user) => {
-      res.render('googleProfile.ejs',{username : user.username,imgsrc : user.googleImg});
-    })
-
+    // User.findById(req.user.id,(err,user) => {
+    //   res.render('googleProfile.ejs',{username : user.username,imgsrc : user.googleImg});
+    // })
+res.redirect('/blogs');
     });
 
 
