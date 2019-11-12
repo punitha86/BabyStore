@@ -61,6 +61,7 @@ app.use('/users', usersController);
 const sessionsController = require('./controllers/sessions.js');
 app.use('/sessions', sessionsController);
 
+////for google authentication
 const authController = require('./controllers/auth.js');
 app.use('/auth', authController);
 

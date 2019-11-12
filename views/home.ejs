@@ -12,11 +12,11 @@
 
   <div class="container">
     <ul>
-      <div class="list-group">
+      <div class="list-group roundedge">
         <% if(blogs.length>0){ %>
         <% for(let i = 0 ; i < blogs.length ; i++){ %>
-        <a href="/blogs/<%=blogs[i].id%>" class="list-group-item list-group-item-action"> <%=blogs[i].title%><br>
-          Content:<%=blogs[i].body.slice(0,20)%>...<br>
+        <a href="/blogs/<%=blogs[i].id%>" class="list-group-item list-group-item-action"> <b class="bold"><%=blogs[i].title%></b><br>
+          <%=blogs[i].body.slice(0,50)%>...<br>
           <small>Created By: <%=blogs[i].createdBy%></small> </a><br>
         <% } %>
         <% } else { %>
@@ -25,14 +25,7 @@
     </div>
 </ul>
 </div>
-<footer>
-<nav class="navbar fixed-bottom navbar-dark bg-dark">
-  <div class="icons">
-       <a href="https://twitter.com/" target="_blank"><ion-icon name="logo-twitter"></ion-icon></a>
-       <a href="https://facebook.com/" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a>
-       <a href="https://instagram.com/" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a>
-</nav>
-</footer>
+<% include ./partials/footer.ejs %>
   </body>
 
 </html>

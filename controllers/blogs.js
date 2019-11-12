@@ -2,6 +2,20 @@ const express = require('express');
 const Blog = require('../models/blogs.js');
 const router = express.Router();
 const passport = require('passport');
+//////////////////Index for routes///////////////////
+////*new route///////adding new blog page/////
+//////post route//////creating new blog///////
+/////show blogs for editing/////////
+/////editing blog contencts and updating it//////
+/////showing blogs for all users////////
+////patch route for like///////////
+////posting new comments route/////
+/////deleting tge comments in our blogs/////
+/////searching for author or title////
+////deleting our blog////////
+
+
+
 ///////////////////ensuring if the user is autenticated to use those pages
 const isAuthenticated = (req,res,next) => {
   if(req.session.username){
@@ -124,6 +138,8 @@ router.post('/comments/:id', (req, res) => {
     }
   );
 });
+
+//deleteing comments
 //patch for comments
 router.patch('/comments/:num/:id',isAuthenticated, (req, res) => {
   console.log(req.body);
@@ -146,10 +162,8 @@ router.patch('/comments/:num/:id',isAuthenticated, (req, res) => {
 router.post('/search', (req, res) => {
   //res.render("blogs/search.ejs");
   Blog.find({
-    $text: {
-       //$regex: req.body.search , $options: 'i'
-      $search: req.body.search
-    }
+    $text: { $search: req.body.search }
+      //$search: req.body.search}
   }, (err, result) => {
     console.log(result);
     res.render('blogs/search.ejs', {
@@ -159,6 +173,7 @@ router.post('/search', (req, res) => {
 
   });
 })
+
 
 ////the user can delete the blog he created
 router.delete('/:id', isAuthenticated, (req, res) => {

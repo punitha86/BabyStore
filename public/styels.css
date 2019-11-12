@@ -10,17 +10,27 @@
   padding-top: 10px;
   padding-right: 10px;
 }
-
+.bold{
+  color:#98fb98;
+  text-shadow: 1px 1px green;
+  text-transform: uppercase;
+}
 .jumbotron {
   width:100%;
   background-image: url('https://i.imgur.com/OBsN95b.jpg');
   background-size: cover;
   font-family: 'Vollkorn SC', serif;
   margin-bottom: 0;
+  text-shadow: 5px 5px 2px #98fb98 ;
   /* background-color: black; */
   color: black;
   border-radius: 0;
 }
+.roundedge{
+  margin-top: 10px;
+    border-radius: 10px;
+}
+
 .media{
   border: 1px solid black;
 }

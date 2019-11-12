@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
         required:true
       },
       googleId:String,
+      googleImg:String,
       password: {
         type: String
       }})

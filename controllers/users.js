@@ -20,7 +20,7 @@ router.get('/logout', (req, res, next) => {
 router.post('/', (req, res) => {
   //console.log('reqbody',req.body);
   console.log(req.body);
-  User.findOne({ username: req.username },(err,user) => {
+  User.findOne({ username: req.body.username },(err,user) => {
     if(user===null){
         req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
         User.create(req.body, (error, createdUser) => {
@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
             res.redirect('/blogs');  })
     }else{
       console.log("User exists! Please use Login!");
-      res.render("./users/login.ejs",{message:"User exists",username:req.username});
+      res.render("./users/login.ejs",{message:"User exists! Please use Login!",username:req.username});
     }
   })//findone end
 

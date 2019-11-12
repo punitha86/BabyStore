@@ -13,7 +13,7 @@ passport.deserializeUser((id,done)=>{
   User.findById(id).then((user) => {
     done(null,user);
   })
-  done(null, user);
+  //done(null, user);
 });
 
 
@@ -36,7 +36,8 @@ User.findOne({googleId:profile.id}).then((currentUser) => {
   }else{
     new User({
       username:profile.displayName,
-      googleId:profile.id
+      googleId:profile.id,
+      googleImg:profile._json.picture
     }).save().then((newUser) => {
       console.log('newuser created'+newUser);
       done(null,newUser);
