@@ -92,7 +92,9 @@ body{
   #myTopnav {
     overflow: hidden;
   }
-
+.newpageform{
+  margin-bottom: 20px;
+}
   li {
     list-style-type: none;
   }
