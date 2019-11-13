@@ -2,6 +2,7 @@ const express = require('express');
 const Blog = require('../models/blogs.js');
 const router = express.Router();
 const passport = require('passport');
+
 //////////////////Index for routes///////////////////
 ////*new route///////adding new blog page/////
 //////post route//////creating new blog///////
@@ -13,8 +14,6 @@ const passport = require('passport');
 /////deleting tge comments in our blogs/////
 /////searching for author or title////
 ////deleting our blog////////
-
-
 
 ///////////////////ensuring if the user is autenticated to use those pages
 const isAuthenticated = (req,res,next) => {
@@ -39,7 +38,6 @@ router.get('/',isAuthenticated, (req, res) => {
   Blog.find({createdBy:username})
   .sort({_id:-1})
   .then(allBlogs => {
-
     res.render('blogs/new.ejs', {
       blogs: allBlogs,
       username:username
@@ -115,18 +113,11 @@ router.put('/:id', (req, res) => {
 
 ///after clicking edit it should show all the correct details
 router.get('/:id', (req, res) => {
-  console.log("get req", req);
-  if(req.session.username){
-    console.log("inside if");
-    username=req.session.username;
-  }else{
-    username=req.user.username;
-  }
+
   Blog.findById(req.params.id, (error, showBlog) => {
     res.render(
       'blogs/show.ejs', {
-        blog: showBlog,
-        username:username
+        blog: showBlog
       }
     );
   });
@@ -194,9 +185,13 @@ router.post('/search', (req, res) => {
     username=req.user.username;
   }
   Blog.find({
-    $text: { $search: req.body.search }
+    //body:{$regex:/^req.body.search/ , $options:'i'}
+     $text: { $search: req.body.search ,
+     $caseSensitive: false}
+    //{ $search: req.body.search }
       //$search: req.body.search}
   }, (err, result) => {
+    console.log(err);
     console.log(result);
     res.render('blogs/search.ejs', {
       result: result,

@@ -11,7 +11,7 @@
     Search results page<br>
     <div class="list-group">
     <%if(result.length>0){%>
-    <%for(let x in result){%>
+    <%for(let x=0; x<result.length; x++){%>
       <a href="/blogs/<%=result[x].id%>" >
       <div class="list-group-item list-group-item-action">
 
